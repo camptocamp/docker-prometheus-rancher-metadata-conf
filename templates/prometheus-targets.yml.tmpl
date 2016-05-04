@@ -11,6 +11,7 @@
 {{ end }}
 {{- range $service := ls "/services/" -}}
   {{ if exists (printf "/services/%s/labels/prometheus_port" .) -}}
+    {{- $stack_name := getv (printf "/services/%s/stack_name" .) }}
     {{- $port := getv (printf "/services/%s/labels/prometheus_port" .) }}
     {{- range $container := lsdir (printf "/services/%s/containers/" $service) -}}
       {{- $host_uuid := getv (printf "/containers/%s/host_uuid" $container) }}
@@ -18,7 +19,7 @@
   - '{{ getv ( printf "/services/%s/containers/%s/primary_ip" $service $container ) }}:{{ $port }}'
   labels:
     job: '{{ $service }}'
-    rancher_environment: '{{ getv "/self/stack/environment_name" }}'
+    rancher_environment: '{{ getv ( printf "/stacks/%s/environment_name" $stack_name ) }}'
       {{- template "nodeinfo" $host_uuid }}
     {{- end }}
   {{- end }}
