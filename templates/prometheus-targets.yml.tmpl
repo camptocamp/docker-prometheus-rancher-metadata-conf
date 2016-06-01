@@ -4,7 +4,7 @@
     {{- if eq $host_uuid (getv ( printf "/hosts/%s/uuid" . )) }}
     rancher_host: '{{ $name }}'
       {{- range gets (printf "/hosts/%s/labels/*" $name) }}
-    {{ replace (index (split .Key "/") 4) "io.rancher.host." "" -1 }}: '{{ .Value }}'
+    {{ replace (index (split .Key "/") 4) "." "_" -1 }}: '{{ .Value }}'
       {{- end }}
     {{- end }}
   {{- end }}

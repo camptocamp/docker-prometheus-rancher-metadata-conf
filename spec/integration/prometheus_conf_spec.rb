@@ -112,15 +112,17 @@ describe "When testing cattle-confd-prometheus integration" do
     end
     it "ensure prometheus-targets.yml is well formed" do
       cat = @prometheus.exec(['cat', '/etc/prometheus-confd/prometheus-targets.yml'], stdout: true)[0][0]
+      puts cat
       yaml = YAML.load(cat)
       expect(yaml.class).to be Array
       expect(yaml.size).to be 5
       labels = yaml.last['labels']
       expect(labels['job']).to eq 'rancher'
       expect(labels['rancher_environment']).to eq 'lab'
-      expect(labels['docker_version']).to eq '1.11'
-      expect(labels['linux_kernel_version']).to eq '3.16'
+      expect(labels['io_rancher_host_docker_version']).to eq '1.11'
+      expect(labels['io_rancher_host_linux_kernel_version']).to eq '3.16'
       expect(labels['rancher_host']).to eq 'lab-rancher'
+      expect(labels['some_label']).to eq 'true'
     end
     it "log successful config files parsing" do
       expect(grep(/Loading configuration file .+prometheus.yml/, @prometheus)).to be true

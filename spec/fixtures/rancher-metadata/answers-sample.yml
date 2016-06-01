@@ -36,6 +36,7 @@
           io.rancher.host.docker_version: '1.11'
           io.rancher.host.kvm: 'true'
           node_role: monitoring
+          some.label: true
         name: lab-rancher
         uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
       service: &id004
@@ -374,6 +375,7 @@
         io.rancher.host.docker_version: '1.11'
         io.rancher.host.kvm: 'true'
         node_role: monitoring
+        some.label: true
       name: lab-rancher
       uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
     self:
@@ -386,6 +388,7 @@
           io.rancher.host.docker_version: '1.11'
           io.rancher.host.kvm: 'true'
           node_role: monitoring
+          some.label: true
         name: lab-rancher
         uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
     services:
@@ -842,6 +845,7 @@ latest: &id098
         io.rancher.host.docker_version: '1.11'
         io.rancher.host.kvm: 'true'
         node_role: monitoring
+        some.label: true
       name: lab-rancher
       uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
     self:
@@ -854,6 +858,7 @@ latest: &id098
           io.rancher.host.docker_version: '1.11'
           io.rancher.host.kvm: 'true'
           node_role: monitoring
+          some.label: true
         name: lab-rancher
         uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
     services:
