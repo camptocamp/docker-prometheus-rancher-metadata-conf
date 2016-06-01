@@ -1,0 +1,969 @@
+'2015-07-25':
+  10.42.15.184:
+    self:
+      container: &id002
+        create_index: 1
+        health_state: null
+        host_uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+        hostname: null
+        ips:
+        - 10.42.15.184
+        labels:
+          io.rancher.scheduler.global: 'true'
+          io.rancher.project.name: janitor
+          io.rancher.service.deployment.unit: 66cc7ff3-bdf7-4e10-8216-30862d0d0dc7
+          io.rancher.service.launch.config: io.rancher.service.primary.launch.config
+          io.rancher.project_service.name: janitor/cleanup
+          io.rancher.service.requested.host.id: '117'
+          io.rancher.stack.name: janitor
+          io.rancher.stack_service.name: janitor/cleanup
+          io.rancher.service.hash: 37f6f0b40cb13561392cb3aacfc7f77a219a907f
+          io.rancher.scheduler.affinity:host_label_ne: janitor.exclude=true
+        name: janitor_cleanup_1
+        ports: []
+        primary_ip: 10.42.15.184
+        service_index: '1'
+        service_name: cleanup
+        stack_name: janitor
+        start_count: 1
+        uuid: 73b7b48b-6f8f-4d60-9d5c-02314aa9a0ea
+      host: &id001
+        agent_ip: 10.27.70.157
+        hostId: 117
+        hostname: lab-rancher
+        labels:
+          io.rancher.host.linux_kernel_version: '3.16'
+          io.rancher.host.docker_version: '1.11'
+          io.rancher.host.kvm: 'true'
+          node_role: monitoring
+        name: lab-rancher
+        uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+      service: &id004
+        containers:
+        - janitor_cleanup_1
+        expose: &id026 []
+        external_ips: &id027 []
+        fqdn: null
+        hostname: null
+        kind: service
+        labels: &id028
+          io.rancher.scheduler.global: 'true'
+          io.rancher.service.hash: 37f6f0b40cb13561392cb3aacfc7f77a219a907f
+          io.rancher.scheduler.affinity:host_label_ne: janitor.exclude=true
+        links: {}
+        metadata: &id029
+          io.rancher.service.hash: a364729255c01d75ca2d3371d4b9d4b0b23ae82e
+        name: cleanup
+        ports: &id030 []
+        scale: 1
+        sidekicks: &id031 []
+        stack_name: janitor
+        token: null
+        uuid: 99b84878-6488-48dd-b03f-5e90f3de940e
+        vip: null
+      stack: &id007
+        environment_name: lab
+        name: janitor
+        services:
+        - cleanup
+        uuid: 01cbfc1b-b974-4ce2-b5c4-653b40cf623c
+  10.42.68.13:
+    self:
+      container: &id003
+        create_index: 1
+        health_state: null
+        host_uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+        hostname: null
+        ips:
+        - 10.42.68.13
+        labels:
+          io.rancher.project.name: metrics
+          io.rancher.service.deployment.unit: 8e8ef2a1-4b78-43b8-829c-8906493024dd
+          io.rancher.service.launch.config: io.rancher.service.primary.launch.config
+          io.rancher.container.create_agent: 'true'
+          io.rancher.project_service.name: metrics/rancher
+          io.rancher.scheduler.affinity:host_label: node_role=monitoring
+          io.rancher.stack.name: metrics
+          io.rancher.stack_service.name: metrics/rancher
+          io.rancher.container.agent.role: environment
+          io.rancher.service.hash: cb4c3800f643d88f650882dc9f8e24c1a3d19c9d
+          prometheus_port: '9010'
+        name: metrics_rancher_1
+        ports: []
+        primary_ip: 10.42.68.13
+        service_index: '1'
+        service_name: rancher
+        stack_name: metrics
+        start_count: 4
+        uuid: 15301c47-9f5e-4f2b-8f82-bd1c32f86ad6
+      host: *id001
+      service: &id005
+        containers:
+        - metrics_rancher_1
+        expose: &id033 []
+        external_ips: &id034 []
+        fqdn: null
+        hostname: null
+        kind: service
+        labels: &id035
+          io.rancher.container.create_agent: 'true'
+          io.rancher.scheduler.affinity:host_label: node_role=monitoring
+          io.rancher.service.hash: cb4c3800f643d88f650882dc9f8e24c1a3d19c9d
+          io.rancher.container.agent.role: environment
+          prometheus_port: '9010'
+        links: {}
+        metadata: &id036
+          io.rancher.service.hash: 0e4ac3fbbddc9ca633d54480678db098616dad26
+        name: rancher
+        ports: &id037 []
+        scale: 1
+        sidekicks: &id038 []
+        stack_name: metrics
+        token: null
+        uuid: 6fd4e5e4-ad0d-4e74-86af-1e979ac6b8c7
+        vip: null
+      stack: &id008
+        environment_name: lab
+        name: metrics
+        services:
+        - node
+        - statsd
+        - containers
+        - rancher
+        - collectd
+        - prometheus-server-conf
+        - prometheus-server
+        uuid: 2354deb3-5a3a-4008-8563-2544ee67f551
+  default:
+    containers:
+    - &id074
+      create_index: null
+      health_state: null
+      host_uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+      hostname: null
+      ips:
+      - 10.42.255.236
+      labels: {}
+      name: Network Agent
+      ports: []
+      primary_ip: 10.42.255.236
+      service_index: null
+      service_name: null
+      stack_name: null
+      start_count: 3
+      uuid: dd8bb40b-0faa-40db-9303-1532c923c7e3
+    - *id002
+    - &id011
+      create_index: 1
+      health_state: null
+      host_uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+      hostname: null
+      ips:
+      - 10.42.177.22
+      labels:
+        io.rancher.scheduler.global: 'true'
+        io.rancher.project.name: metrics
+        io.rancher.service.deployment.unit: 63ded036-c322-4d3f-83aa-dd493936fc20
+        io.rancher.service.launch.config: io.rancher.service.primary.launch.config
+        io.rancher.project_service.name: metrics/node
+        io.rancher.service.requested.host.id: '117'
+        io.rancher.stack.name: metrics
+        io.rancher.stack_service.name: metrics/node
+        io.rancher.service.hash: 19e4f8162a0de0294b6c086360d223a57842ac38
+        prometheus_port: '9100'
+        io.rancher.container.hostname_override: container_name
+      name: metrics_node_1
+      ports: []
+      primary_ip: 10.42.177.22
+      service_index: '1'
+      service_name: node
+      stack_name: metrics
+      start_count: 1
+      uuid: 9c2562f2-0912-41e0-a9d7-f8b6e44e5741
+    - &id009
+      create_index: 1
+      health_state: null
+      host_uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+      hostname: null
+      ips:
+      - 10.42.79.223
+      labels:
+        io.rancher.scheduler.global: 'true'
+        io.rancher.project.name: metrics
+        io.rancher.service.deployment.unit: 36f09cfb-c30d-4371-b437-6243587f9e3d
+        io.rancher.service.launch.config: io.rancher.service.primary.launch.config
+        io.rancher.project_service.name: metrics/containers
+        io.rancher.service.requested.host.id: '117'
+        io.rancher.stack.name: metrics
+        io.rancher.stack_service.name: metrics/containers
+        io.rancher.service.hash: 74eabbd70f6b101adcf7696eae4db773f4949d89
+        prometheus_port: '9104'
+        io.rancher.container.hostname_override: container_name
+      name: metrics_containers_1
+      ports: []
+      primary_ip: 10.42.79.223
+      service_index: '1'
+      service_name: containers
+      stack_name: metrics
+      start_count: 1
+      uuid: fae1e492-5a94-4317-9727-c2ddd66e430a
+    - &id022
+      create_index: 1
+      health_state: null
+      host_uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+      hostname: null
+      ips:
+      - 10.42.247.45
+      labels:
+        io.rancher.project.name: metrics
+        io.rancher.service.deployment.unit: 900241c9-f86b-4c2d-9cbe-c3c6e258cbdb
+        io.rancher.service.launch.config: io.rancher.service.primary.launch.config
+        io.rancher.project_service.name: metrics/collectd
+        io.rancher.scheduler.affinity:host_label: node_role=monitoring
+        io.rancher.stack.name: metrics
+        io.rancher.stack_service.name: metrics/collectd
+        io.rancher.service.hash: 5a4aebbd3bab76123b7ff60bbd1ee11efd097945
+        prometheus_port: '9103'
+        io.rancher.container.hostname_override: container_name
+      name: metrics_collectd_1
+      ports: []
+      primary_ip: 10.42.247.45
+      service_index: '1'
+      service_name: collectd
+      stack_name: metrics
+      start_count: 1
+      uuid: c4a117be-35be-450e-8ec6-c3267f9fb34b
+    - &id015
+      create_index: 1
+      health_state: null
+      host_uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+      hostname: null
+      ips:
+      - 10.42.24.101
+      labels:
+        io.rancher.project.name: metrics
+        io.rancher.service.deployment.unit: 24830795-9b1e-4b64-8ea8-a9ee7e43d4de
+        io.rancher.service.launch.config: io.rancher.service.primary.launch.config
+        io.rancher.project_service.name: metrics/statsd
+        io.rancher.container.requested_ip: 10.42.24.101
+        io.rancher.scheduler.affinity:host_label: node_role=monitoring
+        io.rancher.stack.name: metrics
+        io.rancher.stack_service.name: metrics/statsd
+        io.rancher.service.hash: 0dac12407f6461100ce49600aff774658be7222b
+        io.rancher.container.hostname_override: container_name
+      name: metrics_statsd_1
+      ports: []
+      primary_ip: 10.42.24.101
+      service_index: '1'
+      service_name: statsd
+      stack_name: metrics
+      start_count: 1
+      uuid: bfc130f4-3098-4224-966e-81d2876d7163
+    - *id003
+    - &id024
+      create_index: 1
+      health_state: null
+      host_uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+      hostname: null
+      ips:
+      - 10.42.9.71
+      labels:
+        io.rancher.project.name: metrics
+        io.rancher.container.pull_image: always
+        io.rancher.service.deployment.unit: 2f2f2ac2-b0b2-49fd-98d0-6ed2565dc3d2
+        io.rancher.service.launch.config: prometheus-server-conf
+        io.rancher.project_service.name: metrics/prometheus-server/prometheus-server-conf
+        io.rancher.scheduler.affinity:container_label_soft: io.rancher.service.deployment.unit=2f2f2ac2-b0b2-49fd-98d0-6ed2565dc3d2
+        io.rancher.scheduler.affinity:host_label: node_role=monitoring
+        io.rancher.stack.name: metrics
+        io.rancher.stack_service.name: metrics/prometheus-server/prometheus-server-conf
+        io.rancher.service.hash: 44203872b0e44e4435a20e4b48adecbda103d7e7
+        io.rancher.container.hostname_override: container_name
+      name: metrics_prometheus-server_prometheus-server-conf_1
+      ports: []
+      primary_ip: 10.42.9.71
+      service_index: '1'
+      service_name: prometheus-server-conf
+      stack_name: metrics
+      start_count: 1
+      uuid: 0cdf8975-1e70-451a-a817-976bbdc33948
+    - &id020
+      create_index: 1
+      health_state: null
+      host_uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+      hostname: null
+      ips:
+      - 10.42.178.195
+      labels:
+        io.rancher.project.name: hello
+        io.rancher.service.deployment.unit: 45980690-d242-47c9-8d65-2b2c5ba196fb
+        io.rancher.service.launch.config: io.rancher.service.primary.launch.config
+        io.rancher.project_service.name: hello/hello-app
+        io.rancher.stack.name: hello
+        io.rancher.stack_service.name: hello/hello-app
+        io.rancher.service.hash: 947ae83feaa8c103a0c4a9e90b674706d853845f
+      name: hello_hello-app_1
+      ports: []
+      primary_ip: 10.42.178.195
+      service_index: '1'
+      service_name: hello-app
+      stack_name: hello
+      start_count: 1
+      uuid: 2ac9dc23-31e9-4c48-ac49-a5bc71a5ac1e
+    - &id017
+      create_index: 3
+      health_state: healthy
+      host_uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+      hostname: null
+      ips:
+      - 10.42.0.17
+      labels:
+        io.rancher.project.name: hello
+        io.rancher.service.deployment.unit: f47101db-a7cd-4813-ae3d-d044a407fb4a
+        io.rancher.service.launch.config: io.rancher.service.primary.launch.config
+        io.rancher.container.create_agent: 'true'
+        io.rancher.project_service.name: hello/hello-lb
+        haproxy_stats_port: '8008'
+        io.rancher.container.agent.uri.prefix: delegate
+        io.rancher.container.agent.role: LoadBalancerAgent
+        io.rancher.stack.name: hello
+        io.rancher.stack_service.name: hello/hello-lb
+        io.rancher.service.hash: 82c4d864f4b67ea11b1254d25663c9656b355cf6
+        haproxy_stats_uri: /stats
+      name: hello_hello-lb_1
+      ports:
+      - 10.27.70.157:80:80/tcp
+      primary_ip: 10.42.0.17
+      service_index: '1'
+      service_name: hello-lb
+      stack_name: hello
+      start_count: 1
+      uuid: 8f36bf8a-bf15-4f94-b2e8-2896424932d3
+    - &id013
+      create_index: 3
+      health_state: null
+      host_uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+      hostname: null
+      ips:
+      - 10.42.10.170
+      labels:
+        io.rancher.project.name: metrics
+        io.rancher.service.deployment.unit: 2f2f2ac2-b0b2-49fd-98d0-6ed2565dc3d2
+        io.rancher.service.launch.config: io.rancher.service.primary.launch.config
+        io.rancher.project_service.name: metrics/prometheus-server
+        io.rancher.scheduler.affinity:container_label_soft: io.rancher.service.deployment.unit=2f2f2ac2-b0b2-49fd-98d0-6ed2565dc3d2
+        io.rancher.scheduler.affinity:host_label: node_role=monitoring
+        io.rancher.stack.name: metrics
+        io.rancher.stack_service.name: metrics/prometheus-server
+        prometheus_port: '9090'
+      name: metrics_prometheus-server_1
+      ports:
+      - 10.27.70.157:9090:9090/tcp
+      primary_ip: 10.42.10.170
+      service_index: '1'
+      service_name: prometheus-server
+      stack_name: metrics
+      start_count: 1
+      uuid: 7c7c73a8-ea79-459f-b444-86a921f9ce90
+    hosts:
+    - agent_ip: 10.27.70.157
+      hostId: 117
+      hostname: lab-rancher
+      labels:
+        io.rancher.host.linux_kernel_version: '3.16'
+        io.rancher.host.docker_version: '1.11'
+        io.rancher.host.kvm: 'true'
+        node_role: monitoring
+      name: lab-rancher
+      uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+    self:
+      host:
+        agent_ip: 10.27.70.157
+        hostId: 117
+        hostname: lab-rancher
+        labels:
+          io.rancher.host.linux_kernel_version: '3.16'
+          io.rancher.host.docker_version: '1.11'
+          io.rancher.host.kvm: 'true'
+          node_role: monitoring
+        name: lab-rancher
+        uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+    services:
+    - &id018
+      containers:
+      - hello_hello-lb_1
+      expose: &id075 []
+      external_ips: &id076 []
+      fqdn: null
+      hostname: null
+      kind: loadBalancerService
+      labels: &id077
+        haproxy_stats_port: '8008'
+        io.rancher.service.hash: 82c4d864f4b67ea11b1254d25663c9656b355cf6
+        haproxy_stats_uri: /stats
+      links:
+        hello/hello-app: hello-app
+      metadata: &id078
+        io.rancher.service.hash: 4d986e78fbaf33288c03460fdad3153317f75eeb
+      name: hello-lb
+      ports: &id079
+      - 80:8080
+      scale: 1
+      sidekicks: &id080 []
+      stack_name: hello
+      token: null
+      uuid: 14a62ab8-60b6-45ff-ac40-b33f36a1da8a
+      vip: null
+    - &id012
+      containers:
+      - metrics_node_1
+      expose: &id039 []
+      external_ips: &id040 []
+      fqdn: null
+      hostname: null
+      kind: service
+      labels: &id041
+        io.rancher.scheduler.global: 'true'
+        io.rancher.service.hash: 19e4f8162a0de0294b6c086360d223a57842ac38
+        prometheus_port: '9100'
+        io.rancher.container.hostname_override: container_name
+      links: {}
+      metadata: &id042
+        io.rancher.service.hash: fdc48982f24df06dded262aca93af5b78eb81de7
+      name: node
+      ports: &id043 []
+      scale: 1
+      sidekicks: &id044 []
+      stack_name: metrics
+      token: null
+      uuid: 36e57b6e-f666-496f-a608-b4fb2e352d5b
+      vip: null
+    - *id004
+    - &id016
+      containers:
+      - metrics_statsd_1
+      expose: &id045 []
+      external_ips: &id046 []
+      fqdn: null
+      hostname: null
+      kind: service
+      labels: &id047
+        io.rancher.scheduler.affinity:host_label: node_role=monitoring
+        io.rancher.container.requested_ip: 10.42.24.101
+        io.rancher.service.hash: 0dac12407f6461100ce49600aff774658be7222b
+        io.rancher.container.hostname_override: container_name
+      links: {}
+      metadata: &id048
+        io.rancher.service.hash: 4f076606d76274537802dab4fb1cd858a79c2967
+      name: statsd
+      ports: &id049 []
+      scale: 1
+      sidekicks: &id050 []
+      stack_name: metrics
+      token: null
+      uuid: b2515054-6a1c-42c1-b140-599969544769
+      vip: null
+    - &id010
+      containers:
+      - metrics_containers_1
+      expose: &id051 []
+      external_ips: &id052 []
+      fqdn: null
+      hostname: null
+      kind: service
+      labels: &id053
+        io.rancher.scheduler.global: 'true'
+        io.rancher.service.hash: 74eabbd70f6b101adcf7696eae4db773f4949d89
+        prometheus_port: '9104'
+        io.rancher.container.hostname_override: container_name
+      links: {}
+      metadata: &id054
+        io.rancher.service.hash: b18bee439375b33de3b114fe59d66180750417cf
+      name: containers
+      ports: &id055 []
+      scale: 1
+      sidekicks: &id056 []
+      stack_name: metrics
+      token: null
+      uuid: b58870ac-2e62-41ad-b98c-002fd2721b78
+      vip: null
+    - *id005
+    - &id023
+      containers:
+      - metrics_collectd_1
+      expose: &id058 []
+      external_ips: &id059 []
+      fqdn: null
+      hostname: null
+      kind: service
+      labels: &id060
+        io.rancher.scheduler.affinity:host_label: node_role=monitoring
+        io.rancher.service.hash: 5a4aebbd3bab76123b7ff60bbd1ee11efd097945
+        prometheus_port: '9103'
+        io.rancher.container.hostname_override: container_name
+      links: {}
+      metadata: &id061
+        io.rancher.service.hash: 2549133d5db7293bbc7ddada8ec25a09575cafdb
+      name: collectd
+      ports: &id062 []
+      scale: 1
+      sidekicks: &id063 []
+      stack_name: metrics
+      token: null
+      uuid: f4889041-e463-467a-95ce-642fd5f60221
+      vip: null
+    - &id021
+      containers:
+      - hello_hello-app_1
+      expose: &id085 []
+      external_ips: &id086 []
+      fqdn: null
+      hostname: null
+      kind: service
+      labels: &id087
+        io.rancher.service.hash: 947ae83feaa8c103a0c4a9e90b674706d853845f
+      links: {}
+      metadata: &id088
+        io.rancher.service.hash: 811047050d46aae61f0e3c8ce0ca75ffd86a8b6d
+      name: hello-app
+      ports: &id089 []
+      scale: 1
+      sidekicks: &id090 []
+      stack_name: hello
+      token: null
+      uuid: 3e650e3e-ce89-4236-b36e-e2a0a7cfd095
+      vip: null
+    - &id025
+      containers:
+      - metrics_prometheus-server_prometheus-server-conf_1
+      expose: &id064 []
+      external_ips: &id065 []
+      fqdn: null
+      hostname: null
+      kind: service
+      labels: &id066
+        io.rancher.container.pull_image: always
+        io.rancher.scheduler.affinity:host_label: node_role=monitoring
+        io.rancher.service.hash: 44203872b0e44e4435a20e4b48adecbda103d7e7
+        io.rancher.container.hostname_override: container_name
+      links: {}
+      metadata: &id006
+        io.rancher.service.hash: 14dc54cb585b323b515474e403072b787b8fb8ce
+      name: prometheus-server-conf
+      ports: &id067 []
+      scale: 1
+      sidekicks: &id068 []
+      stack_name: metrics
+      token: null
+      uuid: 92728af1-9fda-40ea-b253-50092304927f
+      vip: null
+    - &id014
+      containers:
+      - metrics_prometheus-server_1
+      expose: &id069 []
+      external_ips: &id070 []
+      fqdn: null
+      hostname: null
+      kind: service
+      labels: &id071
+        io.rancher.scheduler.affinity:host_label: node_role=monitoring
+        prometheus_port: '9090'
+      links: {}
+      metadata: *id006
+      name: prometheus-server
+      ports: &id072
+      - 9090:9090/tcp
+      scale: 1
+      sidekicks: &id073
+      - prometheus-server-conf
+      stack_name: metrics
+      token: null
+      uuid: 92728af1-9fda-40ea-b253-50092304927f
+      vip: null
+    stacks:
+    - &id019
+      environment_name: lab
+      name: hello
+      services:
+      - hello-lb
+      - hello-app
+      uuid: 6838485c-a0dc-42b6-8459-16a620335287
+    - *id007
+    - *id008
+    version: 51-257aff5cc23042701e4b6e49146ac4f33de95ee93d14f3484f87f4e23b378943
+  10.42.79.223:
+    self:
+      container: *id009
+      host: *id001
+      service: *id010
+      stack: *id008
+  10.42.177.22:
+    self:
+      container: *id011
+      host: *id001
+      service: *id012
+      stack: *id008
+  10.42.10.170:
+    self:
+      container: *id013
+      host: *id001
+      service: *id014
+      stack: *id008
+  10.42.24.101:
+    self:
+      container: *id015
+      host: *id001
+      service: *id016
+      stack: *id008
+  10.42.0.17:
+    self:
+      container: *id017
+      host: *id001
+      service: *id018
+      stack: *id019
+  10.42.178.195:
+    self:
+      container: *id020
+      host: *id001
+      service: *id021
+      stack: *id019
+  10.42.247.45:
+    self:
+      container: *id022
+      host: *id001
+      service: *id023
+      stack: *id008
+  10.42.9.71:
+    self:
+      container: *id024
+      host: *id001
+      service: *id025
+      stack: *id008
+latest: &id098
+  10.42.15.184:
+    self:
+      container: *id002
+      host: *id001
+      service: &id032
+        containers:
+        - *id002
+        create_index: 1
+        expose: *id026
+        external_ips: *id027
+        fqdn: null
+        hostname: null
+        kind: service
+        labels: *id028
+        links: {}
+        metadata: *id029
+        name: cleanup
+        ports: *id030
+        scale: 1
+        sidekicks: *id031
+        stack_name: janitor
+        token: null
+        uuid: 99b84878-6488-48dd-b03f-5e90f3de940e
+        vip: null
+      stack: &id095
+        environment_name: lab
+        name: janitor
+        services:
+        - *id032
+        uuid: 01cbfc1b-b974-4ce2-b5c4-653b40cf623c
+  10.42.68.13:
+    self:
+      container: *id003
+      host: *id001
+      service: &id057
+        containers:
+        - *id003
+        create_index: 1
+        expose: *id033
+        external_ips: *id034
+        fqdn: null
+        hostname: null
+        kind: service
+        labels: *id035
+        links: {}
+        metadata: *id036
+        name: rancher
+        ports: *id037
+        scale: 1
+        sidekicks: *id038
+        stack_name: metrics
+        token: null
+        uuid: 6fd4e5e4-ad0d-4e74-86af-1e979ac6b8c7
+        vip: null
+      stack: &id096
+        environment_name: lab
+        name: metrics
+        services:
+        - &id081
+          containers:
+          - *id011
+          create_index: 1
+          expose: *id039
+          external_ips: *id040
+          fqdn: null
+          hostname: null
+          kind: service
+          labels: *id041
+          links: {}
+          metadata: *id042
+          name: node
+          ports: *id043
+          scale: 1
+          sidekicks: *id044
+          stack_name: metrics
+          token: null
+          uuid: 36e57b6e-f666-496f-a608-b4fb2e352d5b
+          vip: null
+        - &id082
+          containers:
+          - *id015
+          create_index: 1
+          expose: *id045
+          external_ips: *id046
+          fqdn: null
+          hostname: null
+          kind: service
+          labels: *id047
+          links: {}
+          metadata: *id048
+          name: statsd
+          ports: *id049
+          scale: 1
+          sidekicks: *id050
+          stack_name: metrics
+          token: null
+          uuid: b2515054-6a1c-42c1-b140-599969544769
+          vip: null
+        - &id083
+          containers:
+          - *id009
+          create_index: 1
+          expose: *id051
+          external_ips: *id052
+          fqdn: null
+          hostname: null
+          kind: service
+          labels: *id053
+          links: {}
+          metadata: *id054
+          name: containers
+          ports: *id055
+          scale: 1
+          sidekicks: *id056
+          stack_name: metrics
+          token: null
+          uuid: b58870ac-2e62-41ad-b98c-002fd2721b78
+          vip: null
+        - *id057
+        - &id084
+          containers:
+          - *id022
+          create_index: 1
+          expose: *id058
+          external_ips: *id059
+          fqdn: null
+          hostname: null
+          kind: service
+          labels: *id060
+          links: {}
+          metadata: *id061
+          name: collectd
+          ports: *id062
+          scale: 1
+          sidekicks: *id063
+          stack_name: metrics
+          token: null
+          uuid: f4889041-e463-467a-95ce-642fd5f60221
+          vip: null
+        - &id091
+          containers:
+          - *id024
+          create_index: 3
+          expose: *id064
+          external_ips: *id065
+          fqdn: null
+          hostname: null
+          kind: service
+          labels: *id066
+          links: {}
+          metadata: *id006
+          name: prometheus-server-conf
+          ports: *id067
+          scale: 1
+          sidekicks: *id068
+          stack_name: metrics
+          token: null
+          uuid: 92728af1-9fda-40ea-b253-50092304927f
+          vip: null
+        - &id092
+          containers:
+          - *id013
+          create_index: 3
+          expose: *id069
+          external_ips: *id070
+          fqdn: null
+          hostname: null
+          kind: service
+          labels: *id071
+          links: {}
+          metadata: *id006
+          name: prometheus-server
+          ports: *id072
+          scale: 1
+          sidekicks: *id073
+          stack_name: metrics
+          token: null
+          uuid: 92728af1-9fda-40ea-b253-50092304927f
+          vip: null
+        uuid: 2354deb3-5a3a-4008-8563-2544ee67f551
+  default:
+    containers:
+    - *id074
+    - *id002
+    - *id011
+    - *id009
+    - *id022
+    - *id015
+    - *id003
+    - *id024
+    - *id020
+    - *id017
+    - *id013
+    hosts:
+    - agent_ip: 10.27.70.157
+      hostId: 117
+      hostname: lab-rancher
+      labels:
+        io.rancher.host.linux_kernel_version: '3.16'
+        io.rancher.host.docker_version: '1.11'
+        io.rancher.host.kvm: 'true'
+        node_role: monitoring
+      name: lab-rancher
+      uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+    self:
+      host:
+        agent_ip: 10.27.70.157
+        hostId: 117
+        hostname: lab-rancher
+        labels:
+          io.rancher.host.linux_kernel_version: '3.16'
+          io.rancher.host.docker_version: '1.11'
+          io.rancher.host.kvm: 'true'
+          node_role: monitoring
+        name: lab-rancher
+        uuid: b4fe0834-4f6c-4bea-a5fc-a1424939bc7e
+    services:
+    - &id093
+      containers:
+      - *id017
+      create_index: 3
+      expose: *id075
+      external_ips: *id076
+      fqdn: null
+      hostname: null
+      kind: loadBalancerService
+      labels: *id077
+      links:
+        hello/hello-app: hello-app
+      metadata: *id078
+      name: hello-lb
+      ports: *id079
+      scale: 1
+      sidekicks: *id080
+      stack_name: hello
+      token: null
+      uuid: 14a62ab8-60b6-45ff-ac40-b33f36a1da8a
+      vip: null
+    - *id081
+    - *id032
+    - *id082
+    - *id083
+    - *id057
+    - *id084
+    - &id094
+      containers:
+      - *id020
+      create_index: 1
+      expose: *id085
+      external_ips: *id086
+      fqdn: null
+      hostname: null
+      kind: service
+      labels: *id087
+      links: {}
+      metadata: *id088
+      name: hello-app
+      ports: *id089
+      scale: 1
+      sidekicks: *id090
+      stack_name: hello
+      token: null
+      uuid: 3e650e3e-ce89-4236-b36e-e2a0a7cfd095
+      vip: null
+    - *id091
+    - *id092
+    stacks:
+    - &id097
+      environment_name: lab
+      name: hello
+      services:
+      - *id093
+      - *id094
+      uuid: 6838485c-a0dc-42b6-8459-16a620335287
+    - *id095
+    - *id096
+    version: 51-257aff5cc23042701e4b6e49146ac4f33de95ee93d14f3484f87f4e23b378943
+  10.42.79.223:
+    self:
+      container: *id009
+      host: *id001
+      service: *id083
+      stack: *id096
+  10.42.177.22:
+    self:
+      container: *id011
+      host: *id001
+      service: *id081
+      stack: *id096
+  10.42.10.170:
+    self:
+      container: *id013
+      host: *id001
+      service: *id092
+      stack: *id096
+  10.42.24.101:
+    self:
+      container: *id015
+      host: *id001
+      service: *id082
+      stack: *id096
+  10.42.0.17:
+    self:
+      container: *id017
+      host: *id001
+      service: *id093
+      stack: *id097
+  10.42.178.195:
+    self:
+      container: *id020
+      host: *id001
+      service: *id094
+      stack: *id097
+  10.42.247.45:
+    self:
+      container: *id022
+      host: *id001
+      service: *id084
+      stack: *id096
+  10.42.9.71:
+    self:
+      container: *id024
+      host: *id001
+      service: *id091
+      stack: *id096
+'2015-12-19': *id098
+
