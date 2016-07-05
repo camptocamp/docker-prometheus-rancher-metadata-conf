@@ -112,7 +112,6 @@ describe "When testing cattle-confd-prometheus integration" do
     end
     it "ensure prometheus-targets.yml is well formed" do
       cat = @prometheus.exec(['cat', '/etc/prometheus-confd/prometheus-targets.yml'], stdout: true)[0][0]
-      puts cat
       yaml = YAML.load(cat)
       expect(yaml.class).to be Array
       expect(yaml.size).to be 5
