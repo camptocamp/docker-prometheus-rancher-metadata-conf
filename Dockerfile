@@ -7,4 +7,4 @@ ADD ./templates /etc/confd/templates
 ADD /prometheus.yml /etc/prometheus-confd/
 
 ENTRYPOINT ["/confd/confd"]
-CMD ["--backend", "rancher", "--prefix", "/2015-12-19", "-interval", "60", "-log-level", "debug"]
+CMD ["--backend", "rancher", "--prefix", "/2015-12-19", "-interval", "60"]
