@@ -38,7 +38,7 @@ describe "When testing cattle-confd-prometheus integration" do
     Docker::Container.create(
       'Image' => image.id,
       'HostConfig' => { 'Links': ["#{@metadata.id}:rancher-metadata"] },
-      'Volumes' => { '/etc/prometheus-confd/' => {} },
+      'Volumes' => { '/etc/prometheus-config/' => {} },
       'Tty' => true, 'OpenStdin' => true)
   end
 
@@ -46,7 +46,7 @@ describe "When testing cattle-confd-prometheus integration" do
     Docker::Container.create(
       'Image' => 'prom/prometheus:0.19.2',
       'HostConfig' => { 'VolumesFrom': ["#{@confd.id}"] },
-      'Cmd' => ['-log.level=debug', '-config.file=/etc/prometheus-confd/prometheus.yml'],
+      'Cmd' => ['-log.level=debug', '-config.file=/etc/prometheus-config/prometheus.yml'],
       'Tty' => true, 'OpenStdin' => true)
   end
 
@@ -101,17 +101,17 @@ describe "When testing cattle-confd-prometheus integration" do
       expect(@prometheus.json['State']['Running']).to be true
     end
     it "see 2 config files exported by confd" do
-      ls = @prometheus.exec(['ls', '/etc/prometheus-confd/'], stdout: true)[0]
+      ls = @prometheus.exec(['ls', '/etc/prometheus-config/'], stdout: true)[0]
       files = ls.join('').split(/\s+/)
       expect(files.include?("prometheus-targets.yml")).to be true
       expect(files.include?("prometheus.yml")).to be true
     end
     it "ensure prometheus.yml is well formed" do
-      cat = @prometheus.exec(['cat', '/etc/prometheus-confd/prometheus.yml'], stdout: true)[0][0]
+      cat = @prometheus.exec(['cat', '/etc/prometheus-config/prometheus.yml'], stdout: true)[0][0]
       expect(YAML.load(cat).class).to be Hash
     end
     it "ensure prometheus-targets.yml is well formed" do
-      cat = @prometheus.exec(['cat', '/etc/prometheus-confd/prometheus-targets.yml'], stdout: true)[0][0]
+      cat = @prometheus.exec(['cat', '/etc/prometheus-config/prometheus-targets.yml'], stdout: true)[0][0]
       yaml = YAML.load(cat)
       expect(yaml.class).to be Array
       expect(yaml.size).to be 5
