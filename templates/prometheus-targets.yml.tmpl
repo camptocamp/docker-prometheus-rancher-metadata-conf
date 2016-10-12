@@ -20,6 +20,7 @@
   labels:
     job: '{{ $service }}'
     rancher_environment: '{{ getv ( printf "/stacks/%s/environment_name" $stack_name ) }}'
+    rancher_stack: '{{ $stack_name }}'
       {{- template "nodeinfo" $host_uuid }}
     {{- end }}
   {{- end }}
