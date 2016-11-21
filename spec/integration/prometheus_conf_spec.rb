@@ -121,7 +121,8 @@ describe "When testing cattle-confd-prometheus integration" do
       expect(labels['io_rancher_host_docker_version']).to eq '1.11'
       expect(labels['io_rancher_host_linux_kernel_version']).to eq '3.16'
       expect(labels['rancher_host']).to eq 'lab-rancher'
-      expect(labels['some_label']).to eq 'true'
+      expect(labels['a_label_with_dots']).to eq 'true'
+      expect(labels['a_label_with_dashes']).to eq 'true'
     end
     it "log successful config files parsing" do
       expect(grep(/Loading configuration file .+prometheus.yml/, @prometheus)).to be true

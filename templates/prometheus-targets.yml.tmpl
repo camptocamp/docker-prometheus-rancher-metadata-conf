@@ -1,10 +1,19 @@
+{{- define "normalize" -}}
+  {{- $key := .Key -}}
+  {{- $val := .Value -}}
+  {{- $rancher_label := index (split $key "/") 4 -}}
+  {{- $stripped_dots := replace $rancher_label "." "_" -1 -}}
+  {{- $stripped_dashes := replace $stripped_dots "-" "_" -1 -}}
+  {{- $normalized_label := $stripped_dashes -}}
+  {{ $normalized_label }}: '{{ $val }}'
+{{- end -}}
 {{- define "nodeinfo" -}}
   {{ $host_uuid := . -}}
   {{ range $name := ls "/hosts/" -}}
     {{- if eq $host_uuid (getv ( printf "/hosts/%s/uuid" . )) }}
     rancher_host: '{{ $name }}'
       {{- range gets (printf "/hosts/%s/labels/*" $name) }}
-    {{ replace (index (split .Key "/") 4) "." "_" -1 }}: '{{ .Value }}'
+    {{ template "normalize" . }}
       {{- end }}
     {{- end }}
   {{- end }}
