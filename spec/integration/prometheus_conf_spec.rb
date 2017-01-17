@@ -114,13 +114,13 @@ describe "When testing cattle-confd-prometheus integration" do
       cat = @prometheus.exec(['cat', '/etc/prometheus-config/prometheus-targets.yml'], stdout: true)[0][0]
       yaml = YAML.load(cat)
       expect(yaml.class).to be Array
-      expect(yaml.size).to be 5
+      expect(yaml.size).to be 7
       labels = yaml.last['labels']
       expect(labels['job']).to eq 'rancher'
-      expect(labels['rancher_environment']).to eq 'lab'
+      expect(labels['rancher_environment']).to eq 'ci'
       expect(labels['io_rancher_host_docker_version']).to eq '1.11'
-      expect(labels['io_rancher_host_linux_kernel_version']).to eq '3.16'
-      expect(labels['rancher_host']).to eq 'lab-rancher'
+      expect(labels['io_rancher_host_linux_kernel_version']).to eq '4.4'
+      expect(labels['rancher_host']).to eq 'ci-0.local'
       expect(labels['a_label_with_dots']).to eq 'true'
       expect(labels['a_label_with_dashes']).to eq 'true'
     end
