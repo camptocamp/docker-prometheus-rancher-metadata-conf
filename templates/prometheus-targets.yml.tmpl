@@ -31,8 +31,19 @@
     job: '{{ $service }}'
     rancher_environment: '{{ getv ( printf "/stacks/%s/environment_name" $stack_name ) }}'
     rancher_stack: '{{ $stack_name }}'
+    rancher_kind: 'service'
       {{- template "nodeinfo" $host_uuid }}
       {{- end }}
+    {{- end -}}
+    {{ if eq "externalService" (getv (printf "/services/%s/kind" .)) }}
+- targets:
+  - '{{ getv ( printf "/services/%s/primary_service_name" $service ) }}.{{ $stack_name }}.rancher.internal:{{ $port }}'
+  labels:
+    job: '{{ $service }}'
+    rancher_environment: '{{ getv ( printf "/stacks/%s/environment_name" $stack_name ) }}'
+    rancher_stack: '{{ $stack_name }}'
+    rancher_kind: 'externalService'
+    rancher_external_hostname: '{{ getv ( printf "/services/%s/hostname" $service ) }}'
     {{- end }}
   {{- end }}
 {{- end }}

@@ -114,15 +114,21 @@ describe "When testing cattle-confd-prometheus integration" do
       cat = @prometheus.exec(['cat', '/etc/prometheus-config/prometheus-targets.yml'], stdout: true)[0][0]
       yaml = YAML.load(cat)
       expect(yaml.class).to be Array
-      expect(yaml.size).to be 7
-      labels = yaml.last['labels']
-      expect(labels['job']).to eq 'rancher'
-      expect(labels['rancher_environment']).to eq 'ci'
-      expect(labels['io_rancher_host_docker_version']).to eq '1.11'
-      expect(labels['io_rancher_host_linux_kernel_version']).to eq '4.4'
-      expect(labels['rancher_host']).to eq 'ci-0.local'
-      expect(labels['a_label_with_dots']).to eq 'true'
-      expect(labels['a_label_with_dashes']).to eq 'true'
+      expect(yaml.size).to be 8
+
+      labels_container = yaml[7]['labels']
+      expect(labels_container['job']).to eq 'rancher'
+      expect(labels_container['rancher_environment']).to eq 'ci'
+      expect(labels_container['io_rancher_host_docker_version']).to eq '1.11'
+      expect(labels_container['io_rancher_host_linux_kernel_version']).to eq '4.4'
+      expect(labels_container['rancher_host']).to eq 'ci-0.local'
+      expect(labels_container['rancher_kind']).to eq 'service'
+      expect(labels_container['a_label_with_dots']).to eq 'true'
+      expect(labels_container['a_label_with_dashes']).to eq 'true'
+
+      labels_external_service = yaml[3]['labels']
+      expect(labels_external_service['rancher_kind']).to eq 'externalService'
+      expect(labels_external_service['rancher_external_hostname']).to eq 'www.google.com'
     end
     it "log successful config files parsing" do
       expect(grep(/Loading configuration file .+prometheus.yml/, @prometheus)).to be true
