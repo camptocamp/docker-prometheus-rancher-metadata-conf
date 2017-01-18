@@ -87,7 +87,7 @@ describe "When testing cattle-confd-prometheus integration" do
       expect(grep(/INFO Using Rancher Metadata URL/, @confd)).to be true
     end
     it "log successful file re-generation" do
-      expect(grep(/INFO Target config .+prometheus-targets.yml has been updated/, @confd)).to be true
+      expect(grep(/INFO Target config .+rancher-metadata-targets.yml has been updated/, @confd)).to be true
     end
   end
 
@@ -103,15 +103,15 @@ describe "When testing cattle-confd-prometheus integration" do
     it "see 2 config files exported by confd" do
       ls = @prometheus.exec(['ls', '/etc/prometheus-config/'], stdout: true)[0]
       files = ls.join('').split(/\s+/)
-      expect(files.include?("prometheus-targets.yml")).to be true
+      expect(files.include?("rancher-metadata-targets.yml")).to be true
       expect(files.include?("prometheus.yml")).to be true
     end
     it "ensure prometheus.yml is well formed" do
       cat = @prometheus.exec(['cat', '/etc/prometheus-config/prometheus.yml'], stdout: true)[0][0]
       expect(YAML.load(cat).class).to be Hash
     end
-    it "ensure prometheus-targets.yml is well formed" do
-      cat = @prometheus.exec(['cat', '/etc/prometheus-config/prometheus-targets.yml'], stdout: true)[0][0]
+    it "ensure rancher-metadata-targets.yml is well formed" do
+      cat = @prometheus.exec(['cat', '/etc/prometheus-config/rancher-metadata-targets.yml'], stdout: true)[0][0]
       yaml = YAML.load(cat)
       expect(yaml.class).to be Array
       expect(yaml.size).to be 8
