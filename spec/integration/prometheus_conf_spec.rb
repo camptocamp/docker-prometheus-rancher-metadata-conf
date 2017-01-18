@@ -38,13 +38,13 @@ describe "When testing cattle-confd-prometheus integration" do
     Docker::Container.create(
       'Image' => image.id,
       'HostConfig' => { 'Links': ["#{@metadata.id}:rancher-metadata"] },
-      'Volumes' => { '/etc/prometheus-config/' => {}, '/etc/prometheus-targets/' => {} },
+      'Volumes' => { '/etc/prometheus-targets/' => {} },
       'Tty' => true, 'OpenStdin' => true)
   end
 
   def prometheus_container
     Docker::Container.create(
-      'Image' => 'prom/prometheus:v1.4.1',
+      'Image' => 'camptocamp/prometheus-server:v1.4.1',
       'HostConfig' => { 'VolumesFrom': ["#{@confd.id}"] },
       'Cmd' => ['-log.level=debug', '-config.file=/etc/prometheus-config/prometheus.yml'],
       'Tty' => true, 'OpenStdin' => true)
