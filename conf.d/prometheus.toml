@@ -1,6 +1,6 @@
 [template]
 src = "rancher-metadata-targets.yml.tmpl"
-dest = "/etc/prometheus-config/rancher-metadata-targets.yml"
+dest = "/etc/prometheus-targets/rancher-metadata-targets.yml"
 keys = [
   "/services",
   "/stacks",
