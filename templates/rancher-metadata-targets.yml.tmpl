@@ -23,7 +23,7 @@
     {{- $stack_name := getv (printf "/services/%s/stack_name" .) }}
     {{- $port := getv (printf "/services/%s/labels/prometheus_port" .) }}
     {{ if eq "service" (getv (printf "/services/%s/kind" .)) }}
-      {{- range $container := lsdir (printf "/services/%s/containers/" $service) -}}
+      {{- range $container := lsdir (printf "/stacks/%s/services/%s/containers/" $stack_name $service) -}}
         {{- $host_uuid := getv (printf "/containers/%s/host_uuid" $container) }}
 - targets:
   - '{{ getv ( printf "/services/%s/containers/%s/primary_ip" $service $container ) }}:{{ $port }}'
