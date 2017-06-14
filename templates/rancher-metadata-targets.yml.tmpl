@@ -12,6 +12,7 @@
   {{ range $name := ls "/hosts/" -}}
     {{- if eq $host_uuid (getv ( printf "/hosts/%s/uuid" . )) }}
     rancher_host: '{{ $name }}'
+    host: '{{ $name }}'
       {{- range gets (printf "/hosts/%s/labels/*" $name) }}
     {{ template "normalize" . }}
       {{- end }}
