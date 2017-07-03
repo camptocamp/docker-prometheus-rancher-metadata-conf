@@ -3143,6 +3143,7 @@
       kind: externalService
       labels: &id529
         prometheus_port: '9103'
+        foobar: 'true'
       lb_config: null
       links: {}
       metadata: &id530 {}

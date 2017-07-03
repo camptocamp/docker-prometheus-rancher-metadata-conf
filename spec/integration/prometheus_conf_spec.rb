@@ -133,6 +133,7 @@ describe "When testing cattle-confd-prometheus integration" do
       labels_external_service = yaml[3]['labels']
       expect(labels_external_service['rancher_kind']).to eq 'externalService'
       expect(labels_external_service['rancher_external_hostname']).to eq 'www.google.com'
+      expect(labels_external_service['foobar']).to eq 'true'
     end
     it "log successful config files parsing" do
       expect(grep(/Loading configuration file .+prometheus.yml/, @prometheus)).to be true

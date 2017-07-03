@@ -45,6 +45,9 @@
     rancher_stack: '{{ $stack_name }}'
     rancher_kind: 'externalService'
     rancher_external_hostname: '{{ getv ( printf "/services/%s/hostname" $service ) }}'
+      {{- range gets (printf "/services/%s/labels/*" $service) }}
+    {{ template "normalize" . }}
+      {{- end }}
     {{- end }}
   {{- end }}
 {{- end }}
