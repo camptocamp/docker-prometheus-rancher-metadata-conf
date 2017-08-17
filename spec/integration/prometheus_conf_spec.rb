@@ -120,7 +120,7 @@ describe "When testing cattle-confd-prometheus integration" do
       expect(yaml.class).to be Array
       expect(yaml.size).to be 8
 
-      labels_container = yaml[7]['labels']
+      labels_container = yaml[6]['labels']
       expect(labels_container['job']).to eq 'rancher'
       expect(labels_container['rancher_environment']).to eq 'ci'
       expect(labels_container['io_rancher_host_docker_version']).to eq '1.11'
@@ -130,7 +130,7 @@ describe "When testing cattle-confd-prometheus integration" do
       expect(labels_container['a_label_with_dots']).to eq 'true'
       expect(labels_container['a_label_with_dashes']).to eq 'true'
 
-      labels_external_service = yaml[3]['labels']
+      labels_external_service = yaml[7]['labels']
       expect(labels_external_service['rancher_kind']).to eq 'externalService'
       expect(labels_external_service['rancher_external_hostname']).to eq 'www.google.com'
       expect(labels_external_service['foobar']).to eq 'true'
