@@ -11,42 +11,43 @@
   {{ $host_uuid := . -}}
   {{ range $name := ls "/hosts/" -}}
     {{- if eq $host_uuid (getv ( printf "/hosts/%s/uuid" . )) }}
-    rancher_host: '{{ $name }}'
-    host: '{{ $name }}'
+      rancher_host: '{{ $name }}'
+      host: '{{ $name }}'
       {{- range gets (printf "/hosts/%s/labels/*" $name) }}
-    {{ template "normalize" . }}
+      {{ template "normalize" . }}
       {{- end }}
     {{- end }}
   {{- end }}
 {{ end }}
+scrape_configs:
 {{- range $stack_name := ls "/stacks/" -}}
   {{- range $service := ls (printf "/stacks/%s/services/" $stack_name) -}}
     {{ if exists (printf "/stacks/%s/services/%s/labels/prometheus_port" $stack_name $service) -}}
       {{- $port := getv (printf "/stacks/%s/services/%s/labels/prometheus_port" $stack_name $service) }}
-      {{ if eq "service" (getv (printf "/stacks/%s/services/%s/kind" $stack_name $service)) }}
+- job_name: '{{ $service }}'
+  static_configs:
+      {{- if eq "service" (getv (printf "/stacks/%s/services/%s/kind" $stack_name $service)) }}
         {{- range $container := lsdir (printf "/stacks/%s/services/%s/containers/" $stack_name $service) -}}
           {{- $host_uuid := getv (printf "/containers/%s/host_uuid" $container) }}
-- targets:
-  - '{{ getv ( printf "/stacks/%s/services/%s/containers/%s/primary_ip" $stack_name $service $container ) }}:{{ $port }}'
-  labels:
-    job: '{{ $service }}'
-    rancher_environment: '{{ getv ( printf "/stacks/%s/environment_name" $stack_name ) }}'
-    rancher_stack: '{{ $stack_name }}'
-    rancher_kind: 'service'
+  - targets:
+    - '{{ getv ( printf "/stacks/%s/services/%s/containers/%s/primary_ip" $stack_name $service $container ) }}:{{ $port }}'
+    labels:
+      rancher_environment: '{{ getv ( printf "/stacks/%s/environment_name" $stack_name ) }}'
+      rancher_stack: '{{ $stack_name }}'
+      rancher_kind: 'service'
       {{- template "nodeinfo" $host_uuid }}
       {{- end }}
     {{- end -}}
-    {{ if eq "externalService" (getv (printf "/services/%s/kind" .)) }}
-- targets:
-  - '{{ getv ( printf "/stacks/%s/services/%s/primary_service_name" $stack_name $service ) }}.{{ $stack_name }}.rancher.internal:{{ $port }}'
-  labels:
-    job: '{{ $service }}'
-    rancher_environment: '{{ getv ( printf "/stacks/%s/environment_name" $stack_name ) }}'
-    rancher_stack: '{{ $stack_name }}'
-    rancher_kind: 'externalService'
-    rancher_external_hostname: '{{ getv ( printf "/stacks/%s/services/%s/hostname" $stack_name $service ) }}'
+    {{- if eq "externalService" (getv (printf "/services/%s/kind" .)) }}
+  - targets:
+    - '{{ getv ( printf "/stacks/%s/services/%s/primary_service_name" $stack_name $service ) }}.{{ $stack_name }}.rancher.internal:{{ $port }}'
+    labels:
+      rancher_environment: '{{ getv ( printf "/stacks/%s/environment_name" $stack_name ) }}'
+      rancher_stack: '{{ $stack_name }}'
+      rancher_kind: 'externalService'
+      rancher_external_hostname: '{{ getv ( printf "/stacks/%s/services/%s/hostname" $stack_name $service ) }}'
         {{- range gets (printf "/services/%s/labels/*" $service) }}
-    {{ template "normalize" . }}
+      {{ template "normalize" . }}
         {{- end }}
       {{- end }}
     {{- end }}

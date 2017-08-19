@@ -117,11 +117,16 @@ describe "When testing cattle-confd-prometheus integration" do
     it "ensure rancher-metadata-targets.yml is well formed" do
       cat = @prometheus.exec(['cat', '/etc/prometheus-targets/rancher-metadata-targets.yml'], stdout: true)[0][0]
       yaml = YAML.load(cat)
-      expect(yaml.class).to be Array
-      expect(yaml.size).to be 8
+      expect(yaml['scrape_configs'].class).to be Array
+      expect(yaml['scrape_configs'].size).to be 6
 
-      labels_container = yaml[6]['labels']
-      expect(labels_container['job']).to eq 'rancher'
+      rancher_job = yaml['scrape_configs'][4]
+      expect(rancher_job['job_name']).to eq 'rancher'
+
+      google_job = yaml['scrape_configs'][5]
+      expect(google_job['job_name']).to eq 'google'
+
+      labels_container = rancher_job['static_configs'].first['labels']
       expect(labels_container['rancher_environment']).to eq 'ci'
       expect(labels_container['io_rancher_host_docker_version']).to eq '1.11'
       expect(labels_container['io_rancher_host_linux_kernel_version']).to eq '4.4'
@@ -130,7 +135,7 @@ describe "When testing cattle-confd-prometheus integration" do
       expect(labels_container['a_label_with_dots']).to eq 'true'
       expect(labels_container['a_label_with_dashes']).to eq 'true'
 
-      labels_external_service = yaml[7]['labels']
+      labels_external_service = google_job['static_configs'].first['labels']
       expect(labels_external_service['rancher_kind']).to eq 'externalService'
       expect(labels_external_service['rancher_external_hostname']).to eq 'www.google.com'
       expect(labels_external_service['foobar']).to eq 'true'
