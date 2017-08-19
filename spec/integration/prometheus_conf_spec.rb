@@ -138,6 +138,11 @@ describe "When testing cattle-confd-prometheus integration" do
       expect(labels_external_service['rancher_external_hostname']).to eq 'www.google.com'
       expect(labels_external_service['foobar']).to eq 'true'
     end
+    it "pass 'promtool check-config'" do
+      promtool = @prometheus.exec(['promtool', 'check-config', '/etc/prometheus/conf.d/rancher-metadata.yml'], stdout: true)
+      expect(promtool[2]).to be 0
+      expect(promtool[1][0].match(/SUCCESS/).size).to eq 1
+    end
     it "log successful config files parsing" do
       expect(grep(/Loading configuration file .+rancher-metadata.yml/, @prometheus)).to be true
     end
