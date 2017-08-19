@@ -121,13 +121,13 @@ describe "When testing cattle-confd-prometheus integration" do
       expect(yaml['scrape_configs'].size).to be 7
 
       jenkins_job = yaml['scrape_configs'][0]
-      expect(jenkins_job['job_name']).to eq 'slave'
+      expect(jenkins_job['job_name']).to eq 'jenkins_slave'
 
       rancher_job = yaml['scrape_configs'][5]
-      expect(rancher_job['job_name']).to eq 'rancher'
+      expect(rancher_job['job_name']).to eq 'metrics_rancher'
 
       google_job = yaml['scrape_configs'][6]
-      expect(google_job['job_name']).to eq 'google'
+      expect(google_job['job_name']).to eq 'test123_google'
 
       expect(jenkins_job['metrics_path']).to eq '/prometheus'
       expect(jenkins_job['scrape_interval']).to eq '120s'
