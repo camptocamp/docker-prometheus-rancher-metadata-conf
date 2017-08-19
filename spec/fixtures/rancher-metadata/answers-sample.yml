@@ -270,6 +270,9 @@
         labels: &id285
           io.rancher.service.hash: e985bdc1821f9d35f494f76b31c44216f9436b58
           io.rancher.scheduler.global: 'true'
+          prometheus_port: 8080
+          prometheus_metrics_path: /prometheus
+          prometheus_scrape_interval: 120s
         lb_config: null
         links:
           jenkins/master: master

@@ -118,13 +118,19 @@ describe "When testing cattle-confd-prometheus integration" do
       cat = @prometheus.exec(['cat', '/etc/prometheus-targets/rancher-metadata-targets.yml'], stdout: true)[0][0]
       yaml = YAML.load(cat)
       expect(yaml['scrape_configs'].class).to be Array
-      expect(yaml['scrape_configs'].size).to be 6
+      expect(yaml['scrape_configs'].size).to be 7
 
-      rancher_job = yaml['scrape_configs'][4]
+      jenkins_job = yaml['scrape_configs'][0]
+      expect(jenkins_job['job_name']).to eq 'slave'
+
+      rancher_job = yaml['scrape_configs'][5]
       expect(rancher_job['job_name']).to eq 'rancher'
 
-      google_job = yaml['scrape_configs'][5]
+      google_job = yaml['scrape_configs'][6]
       expect(google_job['job_name']).to eq 'google'
+
+      expect(jenkins_job['metrics_path']).to eq '/prometheus'
+      expect(jenkins_job['scrape_interval']).to eq '120s'
 
       labels_container = rancher_job['static_configs'].first['labels']
       expect(labels_container['rancher_environment']).to eq 'ci'
