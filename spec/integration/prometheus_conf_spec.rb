@@ -141,7 +141,7 @@ describe "When testing cattle-confd-prometheus integration" do
     it "pass 'promtool check-config'" do
       promtool = @prometheus.exec(['promtool', 'check-config', '/etc/prometheus/conf.d/rancher-metadata.yml'], stdout: true)
       expect(promtool[2]).to be 0
-      expect(promtool[1][0].match(/SUCCESS/).size).to eq 1
+      expect(promtool[1][0]).to match(/SUCCESS/)
     end
     it "log successful config files parsing" do
       expect(grep(/Loading configuration file .+rancher-metadata.yml/, @prometheus)).to be true
