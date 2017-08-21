@@ -36,7 +36,7 @@ scrape_configs:
         {{- range $container := lsdir (printf "/stacks/%s/services/%s/containers/" $stack_name $service) -}}
           {{- $host_uuid := getv (printf "/containers/%s/host_uuid" $container) }}
   - targets:
-    - '{{ getv ( printf "/stacks/%s/services/%s/containers/%s/primary_ip" $stack_name $service $container ) }}:{{ $port }}'
+    - '{{ $container }}.rancher.internal:{{ $port }}'
     labels:
       rancher_environment: '{{ getv ( printf "/stacks/%s/environment_name" $stack_name ) }}'
       rancher_stack: '{{ $stack_name }}'
