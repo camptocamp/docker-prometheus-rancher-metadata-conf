@@ -140,6 +140,7 @@ describe "When testing cattle-confd-prometheus integration" do
     end
     it "pass 'promtool check-config'" do
       promtool = @prometheus.exec(['promtool', 'check-config', '/etc/prometheus/conf.d/rancher-metadata.yml'], stdout: true)
+      sleep 2
       expect(promtool[2]).to be 0
       expect(promtool[1][0]).to match(/SUCCESS/)
     end
