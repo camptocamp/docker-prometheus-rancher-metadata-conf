@@ -1,4 +1,4 @@
-FROM camptocamp/confd:v0.12.0-alpha3
+FROM camptocamp/confd:v0.14.0
 
 ADD ./conf.d /etc/confd/conf.d
 ADD ./templates /etc/confd/templates

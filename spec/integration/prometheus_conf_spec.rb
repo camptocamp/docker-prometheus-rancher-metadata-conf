@@ -44,7 +44,7 @@ describe "When testing cattle-confd-prometheus integration" do
 
   def prometheus_container
     Docker::Container.create(
-      'Image' => 'prom/prometheus:v1.7.1',
+      'Image' => 'prom/prometheus:v1.8.2',
       'HostConfig' => { 'VolumesFrom': ["#{@confd.id}"] },
       'Cmd' => ['-log.level=debug', '-config.file=/etc/prometheus/conf.d/rancher-metadata.yml'],
       'Tty' => true, 'OpenStdin' => true)
@@ -142,7 +142,7 @@ describe "When testing cattle-confd-prometheus integration" do
       promtool = @prometheus.exec(['promtool', 'check-config', '/etc/prometheus/conf.d/rancher-metadata.yml'], stdout: true)
       sleep 2
       expect(promtool[2]).to be 0
-      expect(promtool[1][0]).to match(/SUCCESS/)
+      expect(promtool[1][1]).to match(/SUCCESS/)
     end
     it "log successful config files parsing" do
       expect(grep(/Loading configuration file .+rancher-metadata.yml/, @prometheus)).to be true
