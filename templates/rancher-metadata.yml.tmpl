@@ -31,6 +31,17 @@ scrape_configs:
       {{- if exists (printf "/stacks/%s/services/%s/labels/prometheus_metrics_path" $stack_name $service) }}
   metrics_path: '{{ getv (printf "/stacks/%s/services/%s/labels/prometheus_metrics_path" $stack_name $service) }}'
       {{- end }}
+      {{- if eq "prometheus-pingdom-exporter" $service }}
+  metric_relabel_configs:
+  - source_labels: [tags]
+    regex: ".*p_([^,]+).*"
+    replacement: '$1'
+    target_label: project
+  - source_labels: [tags]
+    regex: ".*l_([^,]+).*"
+    replacement: '$1'
+    target_label: line
+      {{- end }}
   static_configs:
       {{- if eq "service" (getv (printf "/stacks/%s/services/%s/kind" $stack_name $service)) }}
         {{- range $container := lsdir (printf "/stacks/%s/services/%s/containers/" $stack_name $service) -}}
