@@ -123,6 +123,7 @@ describe "When testing cattle-confd-prometheus integration" do
 
       expect(jenkins_job['metrics_path']).to eq '/prometheus'
       expect(jenkins_job['scrape_interval']).to eq '120s'
+      expect(jenkins_job['scrape_timeout']).to eq '120s'
 
       labels_container = rancher_job['static_configs'].first['labels']
       expect(labels_container['rancher_environment']).to eq 'ci'
