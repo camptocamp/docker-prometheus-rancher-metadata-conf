@@ -44,9 +44,9 @@ describe "When testing cattle-confd-prometheus integration" do
 
   def prometheus_container
     Docker::Container.create(
-      'Image' => 'prom/prometheus:v1.8.2',
+      'Image' => 'prom/prometheus:v2.2.1',
       'HostConfig' => { 'VolumesFrom': ["#{@confd.id}"] },
-      'Cmd' => ['-log.level=debug', '-config.file=/etc/prometheus/conf.d/rancher-metadata.yml'],
+      'Cmd' => ['--log.level=debug', '--config.file=/etc/prometheus/conf.d/rancher-metadata.yml'],
       'Tty' => true, 'OpenStdin' => true)
   end
 
@@ -139,18 +139,17 @@ describe "When testing cattle-confd-prometheus integration" do
       expect(labels_external_service['rancher_external_hostname']).to eq 'www.google.com'
       expect(labels_external_service['foobar']).to eq 'true'
     end
-    it "pass 'promtool check-config'" do
-      promtool = @prometheus.exec(['promtool', 'check-config', '/etc/prometheus/conf.d/rancher-metadata.yml'], stdout: true)
+    it "pass 'promtool check config'" do
+      promtool = @prometheus.exec(['promtool', 'check', 'config', '/etc/prometheus/conf.d/rancher-metadata.yml'], stdout: true)
       sleep 2
       expect(promtool[2]).to be 0
-      expect(promtool[1][1]).to match(/SUCCESS/)
+      expect(promtool[0][1]).to match(/SUCCESS/)
     end
     it "log successful config files parsing" do
-      expect(grep(/Loading configuration file .+rancher-metadata.yml/, @prometheus)).to be true
+      expect(grep(/Loading configuration file.+rancher-metadata.yml/, @prometheus)).to be true
     end
     it "log successful startup" do
-      expect(grep(/Listening on :9090/, @prometheus)).to be true
-      expect(grep(/Starting target manager/, @prometheus)).to be true
+      expect(grep(/Server is ready to receive web requests/, @prometheus)).to be true
     end
   end
 
