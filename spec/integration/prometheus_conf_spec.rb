@@ -44,7 +44,7 @@ describe "When testing cattle-confd-prometheus integration" do
 
   def prometheus_container
     Docker::Container.create(
-      'Image' => 'prom/prometheus:v2.2.1',
+      'Image' => 'prom/prometheus:v2.4.3',
       'HostConfig' => { 'VolumesFrom': ["#{@confd.id}"] },
       'Cmd' => ['--log.level=debug', '--config.file=/etc/prometheus/conf.d/rancher-metadata.yml'],
       'Tty' => true, 'OpenStdin' => true)
