@@ -3,7 +3,8 @@
   {{- $val := .Value -}}
   {{- $rancher_label := index (split $key "/") 4 -}}
   {{- $stripped_dots := replace $rancher_label "." "_" -1 -}}
-  {{- $stripped_dashes := replace $stripped_dots "-" "_" -1 -}}
+  {{- $stripped_colons := replace $stripped_dots ":" "_" -1 -}}
+  {{- $stripped_dashes := replace $stripped_colons "-" "_" -1 -}}
   {{- $normalized_label := $stripped_dashes -}}
   {{ $normalized_label }}: '{{ $val }}'
 {{- end -}}

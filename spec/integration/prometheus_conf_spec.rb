@@ -133,6 +133,7 @@ describe "When testing cattle-confd-prometheus integration" do
       expect(labels_container['rancher_kind']).to eq 'service'
       expect(labels_container['a_label_with_dots']).to eq 'true'
       expect(labels_container['a_label_with_dashes']).to eq 'true'
+      expect(labels_container['a_label_with_colons']).to eq 'true'
 
       labels_external_service = google_job['static_configs'].first['labels']
       expect(labels_external_service['rancher_kind']).to eq 'externalService'
