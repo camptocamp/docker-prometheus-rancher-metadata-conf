@@ -48,7 +48,7 @@ scrape_configs:
       {{- template "nodeinfo" $host_uuid }}
       {{- end }}
     {{- end -}}
-    {{- if eq "externalService" (getv (printf "/services/%s/kind" .)) }}
+    {{- if eq "externalService" (getv (printf "/stacks/%s/services/%s/kind" $stack_name $service)) }}
   - targets:
     - '{{ getv ( printf "/stacks/%s/services/%s/primary_service_name" $stack_name $service ) }}.{{ $stack_name }}.rancher.internal:{{ $port }}'
     labels:
