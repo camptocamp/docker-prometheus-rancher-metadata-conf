@@ -127,8 +127,10 @@ describe "When testing cattle-confd-prometheus integration" do
 
       labels_container = rancher_job['static_configs'].first['labels']
       expect(labels_container['rancher_environment']).to eq 'ci'
-      expect(labels_container['io_rancher_host_docker_version']).to eq '1.11'
-      expect(labels_container['io_rancher_host_linux_kernel_version']).to eq '4.4'
+      expect(labels_container['io_rancher_host_docker_version']).to eq nil
+      expect(labels_container['io_rancher_host_linux_kernel_version']).to eq nil
+      expect(labels_container['io_rancher_host_agent_image']).to eq nil
+      expect(labels_container['io_rancher_host_kvm']).to eq nil
       expect(labels_container['rancher_host']).to eq 'ci-0.local'
       expect(labels_container['rancher_kind']).to eq 'service'
       expect(labels_container['a_label_with_dots']).to eq 'true'
@@ -139,6 +141,10 @@ describe "When testing cattle-confd-prometheus integration" do
       expect(labels_external_service['rancher_kind']).to eq 'externalService'
       expect(labels_external_service['rancher_external_hostname']).to eq 'www.google.com'
       expect(labels_external_service['foobar']).to eq 'true'
+      expect(labels_external_service['io_rancher_container_hostname_override']).to eq nil
+      expect(labels_external_service['io_rancher_container_start_once"']).to eq nil
+      expect(labels_external_service['io_rancher_scheduler_affinity_host_label"']).to eq nil
+      expect(labels_external_service['io_rancher_service_hash']).to eq nil
     end
     it "pass 'promtool check config'" do
       promtool = @prometheus.exec(['promtool', 'check', 'config', '/etc/prometheus/conf.d/rancher-metadata.yml'], stdout: true)

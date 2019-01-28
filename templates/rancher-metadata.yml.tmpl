@@ -15,7 +15,9 @@
       rancher_host: '{{ $name }}'
       host: '{{ $name }}'
       {{- range gets (printf "/hosts/%s/labels/*" $name) }}
+        {{- if ( not ( contains .Key "io.rancher." )) }}
       {{ template "normalize" . }}
+        {{- end }}
       {{- end }}
     {{- end }}
   {{- end }}
@@ -55,7 +57,9 @@ scrape_configs:
       rancher_kind: 'externalService'
       rancher_external_hostname: '{{ getv ( printf "/stacks/%s/services/%s/hostname" $stack_name $service ) }}'
         {{- range gets (printf "/services/%s/labels/*" $service) }}
+          {{- if ( not ( contains .Key "io.rancher." )) }}
       {{ template "normalize" . }}
+          {{- end }}
         {{- end }}
       {{- end }}
     {{- end }}
